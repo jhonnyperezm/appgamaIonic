@@ -74,4 +74,59 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+
+  // COLORES MODIFICADOS
+
+  --ion-color-menu: #ff8a15;
+  --ion-color-menu-rgb: 255,138,21;
+  --ion-color-menu-contrast: #ffffff;
+  --ion-color-menu-contrast-rgb: 0,0,0;
+  --ion-color-menu-shade: #e07912;
+  --ion-color-menu-tint: #ff962c;
+
+  --ion-color-facebook: #3b5998;
+  --ion-color-facebook-rgb: 59,89,152;
+  --ion-color-facebook-contrast: #ffffff;
+  --ion-color-facebook-contrast-rgb: 255,255,255;
+  --ion-color-facebook-shade: #344e86;
+  --ion-color-facebook-tint: #4f6aa2;
+
+
+  --ion-color-fondo1: #d7d7d7;
+  --ion-color-fondo1-rgb: 215,215,215;
+  --ion-color-fondo1-contrast: #000000;
+  --ion-color-fondo1-contrast-rgb: 0,0,0;
+  --ion-color-fondo1-shade: #bdbdbd;
+  --ion-color-fondo1-tint: #dbdbdb;
+
+  --highlight-height: 2px;
+
+
+}
+
+
+.ion-color-menu{
+  --ion-color-base: var(--ion-color-menu) !important;
+  --ion-color-base-rgb: var(--ion-color-menu-rgb)!important;
+  --ion-color-contrast: var(--ion-color-menu-contrast)!important;
+  --ion-color-contrast-rgb:var(--ion-color-menu-contrast-rgb)!important;
+  --ion-color-shade: var(--ion-color-menu-shade)!important;
+  --ion-color-tint: var(--ion-color-menu-tint)!important;
+}
+.ion-color-facebook{
+  --ion-color-base: var(--ion-color-facebook) !important;
+  --ion-color-base-rgb: var(--ion-color-facebook-rgb)!important;
+  --ion-color-contrast: var(--ion-color-facebook-contrast)!important;
+  --ion-color-contrast-rgb:var(--ion-color-facebook-contrast-rgb)!important;
+  --ion-color-shade: var(--ion-color-facebook-shade)!important;
+  --ion-color-tint: var(--ion-color-facebook-tint)!important;
+}
+.ion-color-fondo1{
+  --ion-color-base: var(--ion-color-fondo1) !important;
+  --ion-color-base-rgb: var(--ion-color-fondo1-rgb)!important;
+  --ion-color-contrast: var(--ion-color-fondo1-contrast)!important;
+  --ion-color-contrast-rgb:var(--ion-color-fondo1-contrast-rgb)!important;
+  --ion-color-shade: var(--ion-color-fondo1-shade)!important;
+  --ion-color-tint: var(--ion-color-fondo1-tint)!important;
 }

@@ -1,0 +1,14 @@
+<ion-content
+ *ngFor="let i of datosGrupoVenta">
+<ion-card>
+  <img src="../../../assets/img/no-image.png" alt="no-image">
+  <ion-card-header>
+    <ion-card-title>{{i.nombreArticulo}}</ion-card-title>
+     <ion-badge color="facebook" mode="ios">$ {{i.costoEstimado}}</ion-badge>
+  </ion-card-header>
+  <ion-card-content>
+     {{i.descripcion}}
+  </ion-card-content>
+
+</ion-card>
+</ion-content>

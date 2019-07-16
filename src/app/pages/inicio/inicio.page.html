@@ -1,0 +1,30 @@
+<app-header  titulo="menú" contadorCart={{DataCarrito.length}} total={{total}}></app-header>
+
+<ion-content class="animated fadeIn">
+   
+  <div class="container">
+
+    <ion-label  color="facebook">
+      <h1 class="ion-text-center mt-5"> ¿ Que Deseas Ordenar ?</h1>
+    </ion-label>
+
+   <ion-grid class="mx-5" fixed>
+     <ion-row class="mt-5" >
+
+       <ion-col class="animated fadeIn fast" *ngFor="let grupos of listaGrupoVenta" size="5">
+         
+           <ion-button mode="md" expand="block" (click)="redireccion(grupos.id,grupos.nombre)"
+           class="mb-3 ancho"  color="menu">{{grupos.nombre}}</ion-button>
+
+         
+          </ion-col>  
+     </ion-row>
+   </ion-grid>
+  </div>
+
+
+
+</ion-content>
+<app-footer></app-footer>
+
+  

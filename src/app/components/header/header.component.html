@@ -1,0 +1,23 @@
+<ion-header no-border>
+
+    <ion-toolbar color="facebook" >
+        <ion-buttons mode="md" slot="start">
+            <ion-back-button *ngIf="titulo != 'menú'" mode="md" defaultHref="/"></ion-back-button>
+          </ion-buttons>
+ 
+        <ion-button mode="md" color="facebook"  fill="outline"  >
+          <ion-label class="pointer" color="light">Total $ {{total}}<ion-icon  mode="md"></ion-icon></ion-label>
+        </ion-button>
+     
+      <ion-title text-capitalize slot="secondary" >{{titulo}}</ion-title>
+      
+      <div class="mr-3" slot="end">
+        <ion-badge  class="despues"  color="danger" mode="ios">{{contadorCart}}</ion-badge>
+        <ion-button mode="md"  (click)="redireccionCarrito()"  color="facebook" class="ml-0" fill="outline" slot="end">
+        <ion-icon mode="md"  class="antes" color="light" size="large" slot="icon-only" name="cart"> </ion-icon>
+      </ion-button>
+      </div>
+  
+    </ion-toolbar>
+  
+  </ion-header>

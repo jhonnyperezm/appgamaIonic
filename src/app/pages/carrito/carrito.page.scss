@@ -1,0 +1,74 @@
+
+.color1{
+    background-color: #d7d7d7;
+ 
+}
+
+.avatar{
+    /*  margin-left: 35%; */
+     margin-top: 10px;
+     margin-bottom: 20px;
+     width: 100px;
+     height: 100px;
+ }
+
+ .flex-container{
+     display: flex;
+     align-content: space-between;
+ }
+
+ .size{
+     width: 20px;
+     height: 20px;
+ }
+ 
+ion-chip{
+    background-color: #3b5998;
+    border-color: #3b5998;
+ }
+
+ --width{
+     width: 700px;
+ }
+
+
+ //media Querys
+
+ @media (max-width: 768px){
+
+     .custom{
+      position: fixed;
+      bottom: 52%;
+      left: 18%;
+     }
+     .custom-1{
+      position: fixed;
+      bottom: 52%;
+      left: 40%;
+      
+    }
+     .custom-2{
+      position: fixed;
+      bottom: 52%;
+      right: 20%;
+     }
+     
+ }
+ @media (min-width: 1024px){
+ .custom{
+    position: fixed;
+    bottom: 52%;
+    left: 25%;
+   }
+   .custom-1{
+    position: fixed;
+    bottom: 52%;
+    left: 40%;
+    
+  }
+   .custom-2{
+    position: fixed;
+    bottom: 52%;
+    right: 31%;
+   }
+}
