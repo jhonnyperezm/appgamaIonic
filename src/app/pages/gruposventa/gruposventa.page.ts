@@ -136,6 +136,10 @@ export class GruposventaPage implements OnInit, DoCheck {
       }
       console.log(this.DataCarrito);
     }
+
+    localStorage.setItem('data', JSON.stringify(this.DataCarrito))
+    localStorage.setItem('total', this.total.toString())
+   
    
     this.Lista.closeSlidingItems();
     
