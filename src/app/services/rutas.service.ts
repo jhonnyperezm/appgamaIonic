@@ -10,13 +10,13 @@ export class RutasService {
   getPath() {
     // RUTA PARA  DESARROLLO LOCAL
     const path = '/backgama/ptigGama/';
-    // const path = 'http://localhost:8080/backgama/ptigGama/';
+    //const path = 'http://localhost:8080/backgama/ptigGama/';
 
     // RUTA PARA AMBIENTE DESARROLLO
-    // const path = 'http://gd3.gamasoftcol.com:8081/backgama_dev/ptigGama_dev/';
+    //const path = 'http://gd3.gamasoftcol.com:8081/backgama_dev/ptigGama_dev/';
 
     // RUTA PARA AMBIENTE PRODUCCION
-    // const path = 'http://gd3.gamasoftcol.com:8081/backgama/ptigGama/';
+    //const path = 'http://gd3.gamasoftcol.com:8081/backgama/ptigGama/';
     return path;
   }
 

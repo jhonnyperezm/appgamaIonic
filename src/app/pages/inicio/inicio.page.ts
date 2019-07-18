@@ -61,10 +61,6 @@ export class InicioPage implements OnInit {
   redireccion(id, name){
    this.datosGrupo.IdGrupo = id;
    this.datosGrupo.NameGrupo = name;
-
-   // this.router.navigateByUrl(`frutas`)
-
-   /* this.router.navigate(['frutas/' + this.datosGrupo.IdGrupo + '/' + this.datosGrupo.NameGrupo]); */
    this.router.navigate([`gruposventa/${this.datosGrupo.IdGrupo}/${this.datosGrupo.NameGrupo}`]);
   
   }
