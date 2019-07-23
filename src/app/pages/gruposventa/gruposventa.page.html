@@ -1,6 +1,6 @@
-<app-header  titulo={{this.nomGru}} contadorCart={{DataCarrito.length}} total={{total}}></app-header>
+<app-header titulo={{this.nomGru}} contadorCart={{DataCarrito.length}} total={{total}}></app-header>
 
-<ion-content  class="animated fadeIn" padding>
+<ion-content class="animated fadeIn" padding>
 
   <ion-label class="animated fadeIn" color="facebook">
     <h1 text-capitalize class="ion-text-center mt-5">{{this.nomGru}}<ion-badge color="facebook" class="ml-3 " mode="ios"
@@ -8,49 +8,51 @@
     </h1>
   </ion-label>
 
-  <a  (click)="redireccionHome()"  role="button">
+  <a (click)="redireccionHome()" role="button">
     <ion-icon color="dark" class="back-buttom" size="large" mode="ios" name="arrow-back"></ion-icon>
   </a>
- 
-  <div class="container ">
 
+  <div class="container">
     <ion-grid class="mt-3" fixed>
       <ion-row>
         <ion-col class="animated lightSpeedIn" size="6" *ngFor="let item of listaArticulos; let i = index">
-          <ion-list lines="none" class=ion-activatable  #lista  mode="ios" >
-            <ion-item-sliding lines="none" >
-              <ion-item class="border border-primary rounded" lines="none" >
-                <ion-thumbnail class="absolute " slot="start">
-                  <img  (click)="openModal(item)" src="../../../assets/img/no-image.png">
-                  <ion-icon size="large" color="medium"  name="search" class="despues2 mr-4"></ion-icon>
+          <ion-list lines="none" class=ion-activatable #lista mode="ios">
+            <ion-item-sliding lines="none">
+              <ion-item class="borde rounded" lines="none">
+                <ion-thumbnail class="absolute" slot="start">
+                  <img class="viewport-img" (click)="openModal(item)"
+                    src="../../../assets/img/rodolfo-magallanes-MaHkiMGQFZM-unsplash.jpg">
+                  <ion-icon size="large" color="medium" name="search" class="despues2 "></ion-icon>
                 </ion-thumbnail>
-                <ion-badge color="facebook" mode="ios" slot="end" [(ngModel)]="item.contadorArt" name="contadorArt" ngDefaultControl  > {{item.contadorArt}}</ion-badge>
-                <ion-icon  *ngIf="item.contadorArt >= 1" slot="end" mode="md" name="arrow-dropleft"></ion-icon>
-                <ion-label *ngIf="item.seleccion" [routerLink]="['/gruposventaseleccion',idGru,nomGru]" (click)="incrementarContador(item, i)">
+                <ion-badge color="facebook" mode="ios" slot="end" [(ngModel)]="item.contadorArt" name="contadorArt"
+                  ngDefaultControl> {{item.contadorArt}}</ion-badge>
+                <ion-icon *ngIf="item.contadorArt >= 1" slot="end" mode="md" name="arrow-dropleft"></ion-icon>
+                <ion-label *ngIf="item.seleccion" [routerLink]="['/gruposventaseleccion',idGru,nomGru]"
+                  (click)="incrementarContador(item, i)">
                   <h3 >{{item.nombreArticulo}} </h3>
                   <ion-label>$ {{item.costoEstimado}}</ion-label>
-                  <p>{{item.descripcion}}</p>
+                  <ion-label>{{item.descripcion}}</ion-label>
                 </ion-label>
                 <ion-label *ngIf="!item.seleccion" (click)="incrementarContador(item, i)">
                   <h3>{{item.nombreArticulo}} </h3>
                   <ion-label>$ {{item.costoEstimado}}</ion-label>
-                  <p>{{item.descripcion}}</p>
+                  <ion-label>{{item.descripcion}}</ion-label>
                 </ion-label>
-                <ion-ripple-effect type="unbounded" ></ion-ripple-effect>
+                <ion-ripple-effect type="unbounded"></ion-ripple-effect>
               </ion-item>
-              
-              <ion-item-options side="end" >
-                <ion-item-option  *ngIf="item.contadorArt >= 1" (click)="borrar(item.idArticulo, i)" color="danger">
+              <ion-item-options side="end">
+                <ion-item-option *ngIf="item.contadorArt >= 1" (click)="borrar(item.idArticulo, i)" color="danger">
                   <ion-icon slot="icon-only" name="close"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
-
             </ion-item-sliding>
           </ion-list>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
+
 </ion-content>
-<ion-button (click)="redireccionHome()" color="facebook animated bounceIn" class="custom-btn" >Seguir Comprando</ion-button>
+<ion-button (click)="redireccionHome()" color="facebook animated bounceIn" class="custom-btn">Seguir Comprando
+</ion-button>
 <app-footer></app-footer>

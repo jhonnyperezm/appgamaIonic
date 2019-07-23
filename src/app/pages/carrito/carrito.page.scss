@@ -24,6 +24,12 @@
  
  .marg{
      margin-right: 27%;
+     position: static;
+ }
+
+ .margi{
+    margin-right: 29%;
+    position: static;
  }
 
 
@@ -32,6 +38,13 @@ ion-chip{
     border-color: #3b5998;
  }
 
+ .texto{
+    font-size: 14px;
+}
+
+.borde{
+    border: 1px solid  #3b5998;  
+}
 
 
 

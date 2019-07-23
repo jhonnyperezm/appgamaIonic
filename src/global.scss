@@ -35,9 +35,9 @@ ion-buttons{
 }
 
 
-ion-chip{
-  background-color: #3b5998;
-  border-color: #3b5998;
+ion-thumbnail{
+  height: 75px;
+  width: 80px;
 }
 
 .custom-btn{
@@ -45,8 +45,13 @@ ion-chip{
   width: 20%;
   top: 80%;
   left: 40%;
-  
+
 }
+
+.borde{
+  border: 1px solid  #3b5998;  
+}
+
 
 @media (min-width: 1024px){
 
