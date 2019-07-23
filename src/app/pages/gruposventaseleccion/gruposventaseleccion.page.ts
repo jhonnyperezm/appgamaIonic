@@ -150,14 +150,14 @@ export class GruposventaseleccionPage implements OnInit {
   }
 
   agregarArr() {
-
+/* 
     Swal.fire({
       position:'center',
       type: 'success',
       title: 'Su Pedido se ha Añadido Correctamente',
       showConfirmButton: false,
       timer: 2000
-    })
+    }) */
 /* 
     for (let i = 0; i < this.DataCarrito.length; i++) {
       if (this.DataCarrito[i].idx === parseInt(this.idxArt, 0)) {

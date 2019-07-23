@@ -11,8 +11,6 @@
 @import '~@ionic/angular/css/flex-utils.css';
 
 
-
-
 .antes{
     position: absolute;
 }
@@ -22,6 +20,14 @@
     top:0px;
     right:0px;
     z-index: 1;
+}
+.inicio-btn{
+  height: 5rem;
+  box-shadow: 5px 5px 9px 0px #00000063;
+}
+
+.total-stly{
+  font-size: 1.05rem;
 }
 
 ion-buttons{
@@ -46,9 +52,9 @@ ion-chip{
 
   .custom-logo{
     position: absolute;
-    width: 15%;
-    top: 83%;
-    right:3%;
+    width: 6%;
+    bottom: 8%;
+    right: 2%;
     
   }
   

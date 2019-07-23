@@ -22,14 +22,18 @@
      height: 20px;
  }
  
+ .marg{
+     margin-right: 27%;
+ }
+
+
 ion-chip{
     background-color: #3b5998;
     border-color: #3b5998;
  }
 
- --width{
-     width: 700px;
- }
+
+
 
 
  //media Querys
@@ -57,18 +61,18 @@ ion-chip{
  @media (min-width: 1024px){
  .custom{
     position: fixed;
-    bottom: 52%;
-    left: 25%;
+    bottom: 56%;
+    left: 31%;
    }
    .custom-1{
     position: fixed;
-    bottom: 52%;
-    left: 40%;
+    bottom: 56%;
+    left: 45%;
     
   }
    .custom-2{
     position: fixed;
-    bottom: 52%;
+    bottom: 56%;
     right: 31%;
    }
 }

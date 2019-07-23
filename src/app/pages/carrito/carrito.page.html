@@ -3,13 +3,40 @@
       <ion-buttons  slot="start">
           <ion-back-button mode="md" defaultHref="/inicio"></ion-back-button>
         </ion-buttons>
-    <ion-title slot="secondary">Carrito de Compras </ion-title>
+    <ion-title class="ion-text-center">Carrito de Compras </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-header  translucent="true" no-border>
+  <ion-toolbar class="light2">
+      <div  class=" flex-container flex-row-reverse mr-5">
+       <!--    <div class="p-2 flex-grow-1 bd-highlight">
+            <ion-avatar class=" avatar pt-2">
+              <img src="../../../assets/img/no-image.png" />
+            </ion-avatar>
+    
+          </div>
+     -->
+     
+     <div class="pt-3">
+       
+       <ion-badge name="totalAdicionalesMasArt" ngDefaultControl
+       [(ngModel)]="totalAdicionalesMasArt" class="p-2 mt-2  animated pulse" color="danger" mode="ios" outline="true">
+        <ion-label>Total $ {{total}}</ion-label>
+
+       </ion-badge>
+      
+    </div>
+    <h3 class="p-2 bd-highlight">Total a Pagar </h3>
+    <h2  class="ion-align-self-center marg " >Tu Pedido</h2>
+  </div>
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content  class="animated fadeIn" padding>
   <div class="container ">
-    <div class=" flex-container">
+  <!--   <div class=" flex-container">
       <div class="p-2 flex-grow-1 bd-highlight">
         <ion-avatar class=" avatar pt-2">
           <img src="../../../assets/img/no-image.png" />
@@ -27,8 +54,7 @@
 
       </div>
     </div>
-
-    <h2 class="ion-text-center">Tu Pedido</h2>
+ -->
 
     <ion-grid fixed>
    
@@ -45,7 +71,7 @@
                 
                 <ion-label >
                   <h2>{{data.nombreArticulo}}</h2>
-                  <p>$ valor total con o sin adicionales</p>
+                  <ion-label>${{data.costoEstimado}}</ion-label>
                 </ion-label>
                
                 <ion-label >
@@ -66,7 +92,7 @@
                     <p *ngIf="data.adicionales != undefined" class="text-lh">{{dataAdi.nombreArticuloAdicional}}</p>
                     
                   </ion-label>
-                  <ion-label *ngIf="data.adicionales == undefined "><p>Ninguna</p></ion-label>
+                  <ion-label class="ml-3" *ngIf="data.adicionales.length == ''"><p>Ninguna</p></ion-label>
                 
                 </ion-label>
 
@@ -88,10 +114,8 @@
     </ion-grid>
   </div>
   
-
-
 </ion-content>  
-<ion-footer>
+<ion-footer no-border>
   <ion-toolbar>
     <ion-button (click)="elimninarPedido()" color="facebook" class="custom animated bounceIn ">
       Eliminar Pedido
