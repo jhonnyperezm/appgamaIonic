@@ -55,17 +55,42 @@ export class HeaderComponent implements OnInit , DoCheck  {
 
 
 
-  async presentPopover(ev: any) {
-    this.DataCarrito = JSON.parse(localStorage.getItem('data'))
-    const popover = await this.popoverCtrl.create({
-      component: TotalinfoComponent,
-      event: ev,
-      animated:true,
-      mode:"ios",
-      translucent: false
-    });
+  // async presentPopover(ev: any) {
+  //   this.DataCarrito = JSON.parse(localStorage.getItem('data'))
+  //   const popover = await this.popoverCtrl.create({
+  //     component: TotalinfoComponent,
+  //     event: ev,
+  //     animated:true,
+  //     mode:"ios",
+  //     translucent: false
+  //   });
   
-    await popover.present();
+  //   await popover.present();
+  // }
+
+  async presentPopover(ev: any) {
+    this.DataCarrito = JSON.parse(localStorage.getItem('pedidos'))
+
+    if (this.total !== 0) {
+      const popover = await this.popoverCtrl.create({
+        component: TotalinfoComponent,
+        event: ev,
+        showBackdrop: false,
+        mode: 'ios',
+        animated: true,
+        translucent: false,
+        cssClass: ['ancho', 'espacio'],
+
+      });
+
+      await popover.present();
+
+      setTimeout(() => {
+        popover.dismiss()
+      }, 4000);
+     
+    }
+
   }
 
  

@@ -163,6 +163,7 @@ export class CarritoPage implements OnInit {
   }
 
   borrar(data, pos) {
+    console.log(this.DataCarrito);
     let index;
     for (let i = 0; i < this.carritoFinal.length; i++) {
       if (this.carritoFinal[i].idx == data.idx) {
@@ -172,23 +173,58 @@ export class CarritoPage implements OnInit {
       }
     }
 
-    let index2;
+    let idxArt;
+    const prueba = [];
+    /* this.DataCarrito = JSON.parse(localStorage.getItem('data')); */
     for (let i = 0; i < this.DataCarrito.length; i++) {
-      console.log(this.DataCarrito[i].idArticulo);
-      console.log(this.DataCarrito[i].idArticulo + '==' + data.idArticulo + '&&' + this.DataCarrito[i].adicionales.length + '==' + data.adicionales.length);
+      console.log(this.DataCarrito[i]);
+      //console.log(this.DataCarrito[i].idArticulo + '==' + data.idArticulo + '&&' + this.DataCarrito[i].adicionales.length + '==' + data.adicionales.length);
       if (this.DataCarrito[i].idArticulo == data.idArticulo && this.DataCarrito[i].adicionales.length == data.adicionales.length) {
-        console.log('entro data carrito' + this.DataCarrito.indexOf(this.DataCarrito[i]));
-        index2 = this.DataCarrito.indexOf(this.DataCarrito[i]);
-        console.log(index2);
-        this.DataCarrito.splice(index2, 1);
+        console.log('entro data carrito');
+        idxArt = this.DataCarrito.indexOf(this.DataCarrito[i]);
+        this.borrarLocal(this.DataCarrito[i].idx);
+        // prueba.push({id: this.DataCarrito[i].idx});
+        //console.log(idxArt);
+        //this.borrarLocal(idxArt)
+         //this.DataCarrito.splice(idxArt, 1);
       }
     }
+
+
+    /* console.log(prueba); */
+
+   /*  for (let i = 0; i < this.DataCarrito.length; i++) {
+      if (this.DataCarrito[i].idx == existe) {
+        index = this.DataCarrito.indexOf(this.DataCarrito[i]);
+        this.DataCarrito.splice(index, 1);
+      }
+    }
+ */
+    console.log(this.DataCarrito.length);
+
+
     localStorage.setItem('total', this.total.toString());
-    localStorage.setItem('data', JSON.stringify(this.DataCarrito));
+    /* localStorage.setItem('data', JSON.stringify(this.DataCarrito)); */
+    console.log(this.DataCarrito);
     this.Lista.closeSlidingItems();
   }
 
+  borrarLocal(idx) {
+    /* this.DataCarrito = JSON.parse(localStorage.getItem('data'));*/
+    let index; 
+      for (let i = 0; i < this.DataCarrito.length; i++) {
+        console.log(this.DataCarrito[i].idx);
+        if (this.DataCarrito[i].idx == idx) {
+          index = this.DataCarrito.indexOf(this.DataCarrito[i]);
+          console.log(index);
+          this.DataCarrito.splice(index, 1);
+        }
+      }
+    /* localStorage.setItem('data', JSON.stringify(this.DataCarrito)); */
+  }
+
   enviarPedido(data) {
+
     this.router.navigate(['/viewfinal'])
   }
 
@@ -206,8 +242,9 @@ export class CarritoPage implements OnInit {
           role: 'confirm',
 
           handler: () => {
-            console.log('elimino pedido')
-            localStorage.clear()
+            
+            localStorage.setItem('data', JSON.stringify(this.DataCarrito = []));
+            localStorage.setItem('total', JSON.stringify(this.total = 0));
             this.router.navigate(['/viewinicial'])
 
           }

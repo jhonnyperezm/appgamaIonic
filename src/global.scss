@@ -11,6 +11,11 @@
 @import '~@ionic/angular/css/flex-utils.css';
 
 
+.ancho , .popover-wrapper .sc-ion-popover-ios  {
+  width: 250px;
+}
+
+
 .antes{
     position: absolute;
 }

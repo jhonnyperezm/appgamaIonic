@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -15,17 +16,22 @@ import { ModalgruposventaPageModule } from './pages/modalgruposventa/modalgrupos
 import { HeaderComponent } from './components/header/header.component';
 import { ComponentsModule } from './components/components.module';
 
+
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [HeaderComponent],
   imports: [
-    BrowserModule, 
+    BrowserModule,
+    BrowserAnimationsModule,
     IonicModule.forRoot(), 
     AppRoutingModule,
     HttpClientModule,
     HttpModule,
     ComponentsModule,
     ModalgruposventaPageModule,
+   
   ],
   providers: [
     StatusBar,

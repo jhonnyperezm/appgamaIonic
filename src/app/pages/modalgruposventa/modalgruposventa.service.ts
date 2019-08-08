@@ -20,9 +20,10 @@ export class ModalgruposventaService {
   constructor(
     public https: Http, public rutasService: RutasService) {
     this.path = this.rutasService.getPath();
+    this.token = localStorage.getItem('token');
     this.headers = new Headers({
       'Content-Type': 'application/json',
-      'token': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwdGlnIiwiaWF0IjoxNTYxNjQxMjAxLCJleHAiOjE1NjE3Mjc2MDEsImlkVXN1YXJpbyI6MSwiaWRDbGllbnRlIjoxLCJ1c2VyIjoiR2FtYSIsInJvbCI6IkdhbWFzb2Z0IiwiY3JlYWRvUG9yIjoxLCJ1c2VyX2VtYWlsIjoiZ2FtYUBnYW1hLmNvbSIsImlkX3JvbCI6MX0.zV7bHZtkuwOA_UKTEZ5JWVrAYnye5ekWsNFNVUlOzrA'
+      'token': this.token
     });
     this.options = new RequestOptions({ headers: this.headers });
   }

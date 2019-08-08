@@ -5,8 +5,8 @@
             <ion-back-button *ngIf="titulo != 'menú'" mode="md" defaultHref="/"></ion-back-button>
           </ion-buttons>
  
-        <ion-button mode="md" color="facebook"  fill="outline"  >
-          <ion-label class="pointer" color="light" >Total $ {{total | number}}<ion-icon  mode="md"></ion-icon></ion-label>
+        <ion-button  (click)="presentPopover($event)"  mode="md" color="facebook"  fill="outline"  >
+          <ion-label class="pointer dropdown-toggle" color="light" >Total $ {{total | number}}<ion-icon  mode="md"></ion-icon></ion-label>
         </ion-button>
      
       <ion-title text-capitalize slot="secondary">{{titulo}}</ion-title>
