@@ -27,15 +27,15 @@
                 <ion-badge color="facebook" mode="ios" slot="end" [(ngModel)]="item.contadorArt" name="contadorArt"
                   ngDefaultControl> {{item.contadorArt}}</ion-badge>
                 <ion-icon *ngIf="item.contadorArt >= 1" slot="end" mode="md" name="arrow-dropleft"></ion-icon>
-                <ion-label *ngIf="item.seleccion" [routerLink]="['/gruposventaseleccion',idGru,nomGru]"
-                  (click)="incrementarContador(item, i)">
+                <ion-label *ngIf="item.seleccion" [routerLink]="['/gruposventaseleccion',idGru,nomGru,item.idArticulo]"
+                  >
                   <h3 >{{item.nombreArticulo}} </h3>
-                  <ion-label>$ {{item.costoEstimado}}</ion-label>
+                  <ion-label>$ {{item.valorVenta}}</ion-label>
                   <ion-label>{{item.descripcion}}</ion-label>
                 </ion-label>
                 <ion-label *ngIf="!item.seleccion" (click)="incrementarContador(item, i)">
                   <h3>{{item.nombreArticulo}} </h3>
-                  <ion-label>$ {{item.costoEstimado}}</ion-label>
+                  <ion-label>$ {{item.valorVenta}}</ion-label>
                   <ion-label>{{item.descripcion}}</ion-label>
                 </ion-label>
                 <ion-ripple-effect type="unbounded"></ion-ripple-effect>

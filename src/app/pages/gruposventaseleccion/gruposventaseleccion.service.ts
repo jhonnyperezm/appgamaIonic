@@ -14,8 +14,9 @@ import { RutasService } from 'src/app/services/rutas.service';
 
 export class GruposventaseleccionService {
 
-  baseUrlGruposventaseleccion = 'articulosGrupoSeleccionCantidadKiosko/'
+  baseUrlGruposventaseleccion = 'articulosGrupoSeleccionCantidadKiosko/';
 
+  baseUrlArticulosGrupoVenta ='articulosGruposVenta/';
 
   path: any;
   token: any;
@@ -35,6 +36,11 @@ export class GruposventaseleccionService {
 
   getArticulosSeleccion(id) {
     const response = this.https.get(this.path + this.baseUrlGruposventaseleccion + 'findSeleccionArticulo/' + id, this.options).pipe(map(res => res.json()));
+    return response
+  }
+  getArticulosGrupos(id){
+    const response = this.https.get( this.path + this.baseUrlArticulosGrupoVenta + 'findArticulosByGrupoVenta/'+ id,this.options).pipe(map(res => res.json()));
+
     return response
   }
 }

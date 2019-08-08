@@ -3,12 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GruposventaseleccionService } from './gruposventaseleccion.service';
 import Swal from 'sweetalert2'
 
-
-
 @Component({
   selector: 'app-gruposventaseleccion',
   templateUrl: './gruposventaseleccion.page.html',
-  styleUrls: ['./gruposventaseleccion.page.scss'],
+  styleUrls: ['./gruposventaseleccion.page.scss']
 })
 export class GruposventaseleccionPage implements OnInit {
 
@@ -36,95 +34,65 @@ export class GruposventaseleccionPage implements OnInit {
 
   registrosCarrito: any = [];
 
-
-
-  idArticuloPrincipal: any;
-  nombreArticuloPrincipal: any;
-  costoEstimadoArticulo: any;
-  idxArt: any;
+  dataArticuloSeleccion: any = [];
+  idArt: any;
   totalFinal: number;
 
-
+  DataArrayArticulos: any = [];
 
 
   constructor(public router: ActivatedRoute, public dataGS: GruposventaseleccionService, public routers: Router) {
     this.idGru = this.router.snapshot.params.idGrupo;
     this.nomGru = this.router.snapshot.params.nombreGrupo;
-    this.idxArt = this.router.snapshot.params.idxArt;
-
+    this.idArticulo = this.router.snapshot.params.idArt;
+    this.setArr(this.idArticulo);
+    this.grupoSeleccion(this.idArticulo);
   }
 
   ngOnInit() {
-
-
     if (localStorage.getItem('data') === null) {
       this.DataCarrito = [];
-      this.registrosCarrito = [];
     } else {
       this.DataCarrito = JSON.parse(localStorage.getItem('data'));
       this.contadorPrincipal = this.DataCarrito.length;
-      this.registrosCarrito = this.DataCarrito.length;
-
+      for (const iterator of this.DataCarrito) {
+        this.registrosCarrito.push('registrocarrito1');
+      }
     }
-
-    this.idArticulo = localStorage.getItem('idArt')
-    this.setArr(this.idArticulo);
 
     if (localStorage.getItem('total') === null) {
       this.total = 0;
     } else {
-      this.total = JSON.parse(localStorage.getItem('total'))
-
+      this.total = parseInt(localStorage.getItem('total'), 0)
     }
-
-    /*  this.dataSeleccion = JSON.parse(localStorage.getItem('data'));
-     console.log('cslg',this.dataSeleccion ) */
-    console.log(this.DataCarrito);
-
-
   }
 
-
   setArr(idArt) {
-    console.log(idArt);
-    console.log(this.DataCarrito);
-    const exist = this.DataCarrito.filter(x => x.idArticulo === parseInt(idArt, 0));
+    this.dataGS.getArticulosGrupos(this.idGru).subscribe(data => {
+      this.DataArrayArticulos = data;
+      const exist = this.DataArrayArticulos.filter(x => x.idArticulo == parseInt(idArt, 0));
 
-    /*  this.lista = []; */
-    console.log(exist);
+      this.dataArticuloSeleccion.idArticuloPrincipal = exist[0].idArticulo;
+      this.dataArticuloSeleccion.nombreArticuloPrincipal = exist[0].nombreArticulo;
+      this.dataArticuloSeleccion.descripcion = exist[0].descripcion;
+      this.dataArticuloSeleccion.seleccion = exist[0].seleccion;
+      this.dataArticuloSeleccion.valorVenta = exist[0].articulosListaPreciosPojo[0].valorVenta;
+      this.totalAdicionalesMasArt = exist[0].articulosListaPreciosPojo[0].valorVenta;
 
-    this.idArticuloPrincipal = exist[0].idArticulo;
-    this.nombreArticuloPrincipal = exist[0].nombreArticulo;
-    this.costoEstimadoArticulo = exist[0].costoEstimado;
-    this.totalAdicionalesMasArt = exist[0].costoEstimado;
-
-
-   
-
-    this.grupoSeleccion(idArt);
+    });
   }
 
   grupoSeleccion(id) {
     this.dataGS.getArticulosSeleccion(id).subscribe(data => {
       this.dataGrupoSeleccion = data;
-      console.log(this.dataGrupoSeleccion[0].articulosGrupoSeleccionPojo);
-
-
     })
 
   }
 
   incrementaValor(datosAdicional) {
-
-    // this.adicionales = valor;
-
     this.totalAdicionalesMasArt = this.totalAdicionalesMasArt + datosAdicional.incrementa;
 
     this.valorTotalAdicionales = this.valorTotalAdicionales + datosAdicional.incrementa;
-
-    this.totalFinal = this.total + this.valorTotalAdicionales;
-
-    localStorage.setItem('total', this.totalFinal.toString());
 
     this.nombreArticulo = datosAdicional.nombreArticulo;
 
@@ -136,42 +104,29 @@ export class GruposventaseleccionPage implements OnInit {
     })
     this.idxSeleccion.push('incrementa')
 
-    
-    for (let i = 0; i < this.DataCarrito.length; i++) {
-      if (this.DataCarrito[i].idx === parseInt(this.idxArt, 0)) {
-        this.DataCarrito[i].adicionales = this.adicionalArr;
-      }
-
-    }
-    localStorage.setItem('data', JSON.stringify(this.DataCarrito));
-
-    console.log('data', this.adicionalArr)
-
   }
 
-  agregarArr() {
-/* 
-    Swal.fire({
-      position:'center',
-      type: 'success',
-      title: 'Su Pedido se ha Añadido Correctamente',
-      showConfirmButton: false,
-      timer: 2000
-    }) */
-/* 
-    for (let i = 0; i < this.DataCarrito.length; i++) {
-      if (this.DataCarrito[i].idx === parseInt(this.idxArt, 0)) {
-        this.DataCarrito[i].adicionales = this.adicionalArr;
-      }
+  agregarArr(datosArticulo) {
 
-    }
+    this.DataCarrito.push({
+      idx: this.registrosCarrito.length + 1,
+      valorVenta: datosArticulo.valorVenta,
+      descripcion: datosArticulo.descripcion,
+      idArticulo: datosArticulo.idArticuloPrincipal,
+      nombreArticulo: datosArticulo.nombreArticuloPrincipal,
+      seleccion: datosArticulo.seleccion,
+      idGrupo: this.idGru,
+      adicionales: this.adicionalArr
+
+    })
+    this.registrosCarrito.push('incremento1');
+
+    this.totalFinal = this.total + this.totalAdicionalesMasArt;
+
     localStorage.setItem('data', JSON.stringify(this.DataCarrito));
+    localStorage.setItem('total', this.totalFinal.toString());
 
-
-    console.log(this.DataCarrito)
-     */
-    this.routers.navigate([`gruposventa/${this.idGru}/${ this.nomGru}`]);
-    
+    this.routers.navigate([`inicio`]);
   }
 
 

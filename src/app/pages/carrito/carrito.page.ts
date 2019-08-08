@@ -1,15 +1,13 @@
-import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonList, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-
-
 
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.page.html',
   styleUrls: ['./carrito.page.scss'],
 })
-export class CarritoPage implements OnInit, DoCheck {
+export class CarritoPage implements OnInit {
 
   @ViewChild('lista') Lista: IonList
 
@@ -21,46 +19,38 @@ export class CarritoPage implements OnInit, DoCheck {
   registrosCarritoFinal: any = [];
 
 
-  constructor( public router : Router,
-               public alertcCtrl: AlertController,
+  constructor(public router: Router,
+    public alertcCtrl: AlertController,
 
   ) { }
-  ngDoCheck(){}
 
   ngOnInit() {
-
-
     if (localStorage.getItem('data') === null) {
       this.DataCarrito = [];
     } else {
       this.DataCarrito = JSON.parse(localStorage.getItem('data'));
       this.contadorPrincipal = this.DataCarrito.length;
-      console.log(this.DataCarrito);
     }
-
 
     if (localStorage.getItem('total') === null) {
       this.total = 0;
     } else {
-      this.total = JSON.parse(localStorage.getItem('total'))
-
+      this.total = parseInt(localStorage.getItem('total'), 0)
     }
 
-    console.log(this.DataCarrito);
     this.agregarCarrito(this.DataCarrito);
 
     this.registrosCarrito = [];
 
     for (let i = 0; i < this.DataCarrito.length; i++) {
       this.registrosCarrito.push('incremento1');
-
     }
   }
 
   agregarCarrito(datosCarrito) {
     this.carritoFinal = [];
     for (const key of datosCarrito) {
- 
+
       let exist;
       if (key.adicionales.length === 0) {
         exist = this.carritoFinal.filter(x => x.idArticulo === key.idArticulo && x.adicionales.length === 0);
@@ -69,9 +59,18 @@ export class CarritoPage implements OnInit, DoCheck {
       }
 
       if (exist.length === 0) {
-    
+        let valorVentaFin = key.valorVenta;
+        if (key.adicionales.length >= 1) {
+          for (const iterator of key.adicionales) {
+            valorVentaFin = valorVentaFin + iterator.valorAdicional;
+          }
+        } else {
+          valorVentaFin = key.valorVenta;
+        }
+
         this.carritoFinal.push({
-          costoEstimado: key.costoEstimado,
+          valorVenta: key.valorVenta,
+          valorVentaFinal: valorVentaFin,
           descripcion: key.descripcion,
           idArticulo: key.idArticulo,
           idx: this.registrosCarritoFinal.length + 1,
@@ -86,24 +85,18 @@ export class CarritoPage implements OnInit, DoCheck {
         for (let i = 0; i < this.carritoFinal.length; i++) {
           if (this.carritoFinal[i].idArticulo === exist[0].idArticulo && this.carritoFinal[i].adicionales.length == 0) {
             this.carritoFinal[i].cantidad = this.carritoFinal[i].cantidad + 1;
+            this.carritoFinal[i].valorVentaFinal = this.carritoFinal[i].valorVenta * this.carritoFinal[i].cantidad;
           }
-         
+
         }
-
-      
-
       }
-      console.log(this.carritoFinal);
-
     }
-
   }
 
   sumarCantidad(obj) {
-
     this.DataCarrito.push({
       idx: this.registrosCarrito.length + 1,
-      costoEstimado: obj.costoEstimado,
+      valorVenta: obj.valorVenta,
       descripcion: obj.descripcion,
       idArticulo: obj.idArticulo,
       nombreArticulo: obj.nombreArticulo,
@@ -113,39 +106,50 @@ export class CarritoPage implements OnInit, DoCheck {
     })
     this.registrosCarrito.push('incremento1');
 
-
     localStorage.setItem('data', JSON.stringify(this.DataCarrito));
+    let exist;
+    if (obj.adicionales.length === 0) {
+      exist = this.carritoFinal.filter(x => x.idArticulo === obj.idArticulo && x.adicionales.length === 0);
+    } else {
+      exist = this.carritoFinal.filter(x => x.idArticulo === obj.idArticulo && x.adicionales == obj.adicionales);
+    }
 
-    this.agregarCarrito(this.DataCarrito);
+    if (exist.length >= 1) {
 
+      for (let i = 0; i < this.carritoFinal.length; i++) {
+        if (this.carritoFinal[i].idArticulo === exist[0].idArticulo && this.carritoFinal[i].adicionales.length == 0) {
+          this.carritoFinal[i].cantidad = this.carritoFinal[i].cantidad + 1;
+          this.carritoFinal[i].valorVentaFinal = this.carritoFinal[i].valorVenta * this.carritoFinal[i].cantidad;
+        }
 
-    this.total = this.total + obj.costoEstimado;
+      }
+    }
+
+    this.total = this.total + obj.valorVenta;
 
     localStorage.setItem('total', this.total.toString());
   }
 
-
-
   restarCantidad(obj, id) {
-
     if (obj.cantidad > 1) {
       let index;
-      const existe = this.DataCarrito.filter(x => x.idArticulo === obj.idArticulo && x.adicionales.length == 0);
-      if (existe.length >= 1) {
-        index = existe[0];
-        this.DataCarrito.splice(index, 1);
-      }
+      const existe = this.DataCarrito.filter(x => x.idArticulo == obj.idArticulo && x.adicionales == obj.adicionales)[0].idx;
 
+      for (let i = 0; i < this.DataCarrito.length; i++) {
+        if (this.DataCarrito[i].idx == existe) {
+          index = this.DataCarrito.indexOf(this.DataCarrito[i]);
+          this.DataCarrito.splice(index, 1);
+        }
+      }
 
       for (let i = 0; i < this.carritoFinal.length; i++) {
         if (this.carritoFinal[i].idx === obj.idx) {
           this.carritoFinal[i].cantidad = this.carritoFinal[i].cantidad - 1;
+          this.carritoFinal[i].valorVentaFinal = this.carritoFinal[i].valorVenta * this.carritoFinal[i].cantidad;
         }
       }
-
-
       if (this.total != 0) {
-        this.total = this.total - obj.costoEstimado;
+        this.total = this.total - obj.valorVenta;
 
       } else {
         this.total = 0;
@@ -156,70 +160,52 @@ export class CarritoPage implements OnInit, DoCheck {
     localStorage.setItem('data', JSON.stringify(this.DataCarrito));
     localStorage.setItem('total', this.total.toString());
 
-    console.log(this.DataCarrito)
   }
 
-
-
   borrar(data, pos) {
-
     let index;
     for (let i = 0; i < this.carritoFinal.length; i++) {
       if (this.carritoFinal[i].idx == data.idx) {
+        this.total = this.total - this.carritoFinal[i].valorVentaFinal;
         index = this.carritoFinal.indexOf(this.carritoFinal[i]);
         this.carritoFinal.splice(index, 1);
       }
-
     }
 
     let index2;
     for (let i = 0; i < this.DataCarrito.length; i++) {
-      if (this.DataCarrito[i].idArticulo === data.idArticulo && this.DataCarrito[i].adicionales == data.adicionales) {
+      console.log(this.DataCarrito[i].idArticulo);
+      console.log(this.DataCarrito[i].idArticulo + '==' + data.idArticulo + '&&' + this.DataCarrito[i].adicionales.length + '==' + data.adicionales.length);
+      if (this.DataCarrito[i].idArticulo == data.idArticulo && this.DataCarrito[i].adicionales.length == data.adicionales.length) {
+        console.log('entro data carrito' + this.DataCarrito.indexOf(this.DataCarrito[i]));
         index2 = this.DataCarrito.indexOf(this.DataCarrito[i]);
+        console.log(index2);
         this.DataCarrito.splice(index2, 1);
       }
-      
     }
-
-    let sumaTotal = data.costoEstimado;
-    if (data.adicionales.length >= 1) {
-      for (let i = 0; i < data.adicionales.length; i++) {
-        sumaTotal = parseInt(sumaTotal, 0) + parseInt(data.adicionales[i].valorAdicional, 0);
-        
-      }
-    }
-
-    if (this.total != 0) {
-      this.total = this.total - sumaTotal;
-
-    } else {
-      this.total = 0;
-    }
-
-    localStorage.setItem('data', JSON.stringify(this.DataCarrito));
     localStorage.setItem('total', this.total.toString());
+    localStorage.setItem('data', JSON.stringify(this.DataCarrito));
     this.Lista.closeSlidingItems();
-
   }
 
-
-  enviarPedido(data){
+  enviarPedido(data) {
     this.router.navigate(['/viewfinal'])
   }
-  seguirComprando(){
+
+  seguirComprando() {
     this.router.navigate(['/inicio'])
   }
 
-  async elimninarPedido(){
+  async elimninarPedido() {
     const alert = await this.alertcCtrl.create({
       header: '¿Estas seguro que deseas eliminar tu pedio?',
-      mode:'md',
+      mode: 'md',
       buttons: [
         {
-          text:'Aceptar',
-          role:'confirm',
-        
-          handler:() =>{
+          text: 'Aceptar',
+          role: 'confirm',
+
+          handler: () => {
             console.log('elimino pedido')
             localStorage.clear()
             this.router.navigate(['/viewinicial'])
@@ -227,16 +213,16 @@ export class CarritoPage implements OnInit, DoCheck {
           }
         },
         {
-          text:'Cancelar',
-          role:'cancel',
-          
-          handler: ()=>{
+          text: 'Cancelar',
+          role: 'cancel',
+
+          handler: () => {
             /* console.log('no pasa nada') */
           }
         }
-      
+
       ],
-     
+
     });
     await alert.present();
   }
