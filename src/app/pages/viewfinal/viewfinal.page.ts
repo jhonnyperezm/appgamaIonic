@@ -8,14 +8,19 @@ import { Router } from '@angular/router';
 })
 export class ViewfinalPage implements OnInit {
 
+  DataCarrito:any = [];
+  total:number=0
+
   constructor( private router : Router ) { }
 
   ngOnInit() {
   }
 
   volverInicio(){
-    localStorage.clear()
-    this.router.navigate(['/viewinicial']);
+    localStorage.setItem('data', JSON.stringify(this.DataCarrito = []));
+    localStorage.setItem('total', JSON.stringify(this.total = 0));
+    this.router.navigate(['/viewinicial'])
+   
   }
 
 }

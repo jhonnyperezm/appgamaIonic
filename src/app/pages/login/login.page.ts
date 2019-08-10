@@ -32,9 +32,9 @@ export class LoginPage implements OnInit {
 
 
   constructor(private http: HttpClient,
-              public router: Router,
-              public loginService: LoginService,
-              public toastCtrl: ToastController) {
+    public router: Router,
+    public loginService: LoginService,
+    public toastCtrl: ToastController) {
     this.privateIP = sessionStorage.getItem('IpLocal');
   }
 
@@ -88,10 +88,10 @@ export class LoginPage implements OnInit {
     const toast = await this.toastCtrl.create({
       message: 'Error! Usuario o  Contraseña  Incorrectos, verifique e intente nuevamente.',
       duration: 3000,
-      position:'top',
-      mode:'ios',
-      color:'danger',
-      
+      position: 'top',
+      mode: 'ios',
+      color: 'danger',
+
     });
     toast.present();
   }
@@ -100,10 +100,10 @@ export class LoginPage implements OnInit {
     const toast = await this.toastCtrl.create({
       message: 'Error! El usuario esta desactivado',
       duration: 3000,
-      position:'top',
-      mode:'ios',
-      color:'danger',
-      
+      position: 'top',
+      mode: 'ios',
+      color: 'danger',
+
     });
     toast.present();
   }
@@ -128,6 +128,7 @@ export class LoginPage implements OnInit {
   LimpiarFormUsuarios() {
     this.UsuarioForm.reset();
   }
+
 
 
 
