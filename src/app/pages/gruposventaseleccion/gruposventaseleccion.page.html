@@ -3,11 +3,11 @@
 
     <ion-toolbar color="facebook">
         <ion-buttons mode="md" slot="start">
-            <ion-back-button *ngIf="titulo != 'menú'" mode="md" defaultHref="gruposventa/:idGrupo/:nombreGrupo">
+            <ion-back-button mode="md" defaultHref="gruposventa/:idGrupo/:nombreGrupo">
             </ion-back-button>
         </ion-buttons>
 
-        <ion-button (click)="presentPopover($event)" mode="md" color="facebook" fill="outline">
+        <ion-button  mode="md" color="facebook" fill="outline">
             <ion-label class="pointer dropdown-toggle text-size" color="light">Total $ {{total | number}}<ion-icon
                     mode="md"></ion-icon>
             </ion-label>
