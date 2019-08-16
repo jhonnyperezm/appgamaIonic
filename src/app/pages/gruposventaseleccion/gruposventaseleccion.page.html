@@ -1,5 +1,31 @@
-<app-header titulo={{this.nomGru}} contadorCart={{DataCarrito.length}} total={{total}}></app-header>
+<!-- <app-header titulo={{this.nomGru}} contadorCart={{DataCarrito.length}} total={{total}}></app-header> -->
+<ion-header no-border>
 
+    <ion-toolbar color="facebook">
+        <ion-buttons mode="md" slot="start">
+            <ion-back-button *ngIf="titulo != 'menú'" mode="md" defaultHref="gruposventa/:idGrupo/:nombreGrupo">
+            </ion-back-button>
+        </ion-buttons>
+
+        <ion-button (click)="presentPopover($event)" mode="md" color="facebook" fill="outline">
+            <ion-label class="pointer dropdown-toggle text-size" color="light">Total $ {{total | number}}<ion-icon
+                    mode="md"></ion-icon>
+            </ion-label>
+        </ion-button>
+
+        <ion-title text-capitalize id="titulo-header" slot="secondary">{{nomGru}}</ion-title>
+
+        <div class="mr-3" slot="end">
+            <ion-badge class="despues" color="danger" mode="ios">{{DataCarrito.length}}</ion-badge>
+            <ion-button mode="md" (click)="redireccionCarrito()" color="facebook" class="ml-0" fill="outline"
+                slot="end">
+                <ion-icon mode="md" class="antes" color="light" slot="icon-only" name="cart"> </ion-icon>
+            </ion-button>
+        </div>
+
+    </ion-toolbar>
+
+</ion-header>
 <ion-content padding>
 
     <div class="container ion-padding ">
@@ -9,14 +35,12 @@
                 <ion-col size="8">
                     <ion-list lines="none" class="borde-bottom  rounded">
                         <ion-item class="animated fadeIn">
-                            <ion-thumbnail  slot="start">
+                            <ion-thumbnail slot="start">
 
-                                <img  class="viewport-img" [src]="img">
+                                <img class="viewport-img" [src]="dataArticuloSeleccion.imagen">
                             </ion-thumbnail>
                             <ion-label>
                                 <h3>{{dataArticuloSeleccion.nombreArticuloPrincipal}} </h3>
-
-
                             </ion-label>
                             <p>Valor $ {{dataArticuloSeleccion.valorVenta | number}}</p>
 
@@ -34,14 +58,21 @@
                                     <ion-label>{{data.nombreGrupoSeleccion}}</ion-label>
                                 </ion-item>
 
-                                <ion-list  lines="none" class="ion-activatable  borde rounded mb-3" *ngFor="let item of data.articulosGrupoSeleccionPojo">
+                                <ion-list (click)="presentToast()" lines="none"
+                                    class="ion-activatable  borde rounded mb-3"
+                                    *ngFor="let item of data.articulosGrupoSeleccionPojo">
                                     <ion-item (click)="incrementaValor(item)">
 
-                                        <ion-label class="custom-label1"><h2 class=" ">{{item.nombreArticulo}}</h2></ion-label>
-                                        
-                                     
-                                      
-                                        <ion-label class="custom-label" ><ion-badge class="texto" color="menu" mode="ios"> $ {{item.incrementa | number}}</ion-badge>  </ion-label>
+                                        <ion-label class="custom-label1">
+                                            <h2 class=" ">{{item.nombreArticulo}}</h2>
+                                        </ion-label>
+
+
+                                        <ion-label class="custom-label">
+                                            <ion-badge id="badge" class="texto" color="menu" mode="ios"> $
+                                                {{item.incrementa | number}}</ion-badge>
+                                        </ion-label>
+
 
 
                                     </ion-item>
@@ -62,7 +93,7 @@
                     </ion-item>
                     <ion-item lines="none" class="my-3" color="fondo1">
                         <ion-text color="dark">
-                            {{nombreArticuloPrincipal}}
+                            {{dataArticuloSeleccion.nombreArticuloPrincipal}}
                             <p>$ {{dataArticuloSeleccion.valorVenta | number}}</p>
                             <ion-label>Adicionales</ion-label>
                             <ion-label ngDefaultControl name="valorTotalAdicionales"
@@ -86,8 +117,6 @@
         </ion-grid>
     </div>
 </ion-content>
-
-<ion-button (click)="agregarArr(dataArticuloSeleccion)" color="facebook" class="custom-btn animated animated bounceIn">Agregar </ion-button>
-
-
+<ion-button (click)="agregarArr(dataArticuloSeleccion)" color="facebook" class="custom-btn animated animated bounceIn">
+    Agregar </ion-button>
 <app-footer></app-footer>

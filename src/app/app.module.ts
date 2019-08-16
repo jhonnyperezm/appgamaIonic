@@ -15,6 +15,8 @@ import { HttpModule } from '@angular/http';
 import { ModalgruposventaPageModule } from './pages/modalgruposventa/modalgruposventa.module';
 import { HeaderComponent } from './components/header/header.component';
 import { ComponentsModule } from './components/components.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 
@@ -31,6 +33,7 @@ import { ComponentsModule } from './components/components.module';
     HttpModule,
     ComponentsModule,
     ModalgruposventaPageModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
    
   ],
   providers: [

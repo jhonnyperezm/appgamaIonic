@@ -20,7 +20,7 @@
       
     </div>
     <h3 class="p-2 bd-highlight">Total a Pagar </h3>
-    <h2  class="ion-align-self-center marg "  [ngClass]="{margi: this.total == '' }">Tu Pedido</h2>
+    <h2  class="ion-align-self-center marg "  [ngClass]="{margi: this.total == 0 }">Tu Pedido</h2>
   </div>
     
   </ion-toolbar>
@@ -87,7 +87,7 @@
     <ion-button (click)="seguirComprando()" color="facebook" class="seguir-c animated bounceIn ">
       Seguir Comprando
     </ion-button>
-    <ion-button (click)="enviarPedido(data)" color="facebook" class="enviar-p animated bounceIn ">
+    <ion-button (click)="enviarPedido()" color="facebook" class="enviar-p animated bounceIn ">
       Enviar Pedio
     </ion-button>
     <app-footer></app-footer>

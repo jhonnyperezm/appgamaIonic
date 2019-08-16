@@ -6,15 +6,15 @@
           </ion-buttons>
  
         <ion-button  (click)="presentPopover($event)"  mode="md" color="facebook"  fill="outline"  >
-          <ion-label class="pointer dropdown-toggle" color="light" >Total $ {{total | number}}<ion-icon  mode="md"></ion-icon></ion-label>
+          <ion-label class="pointer dropdown-toggle text-size" color="light" >Total $ {{total | number}}<ion-icon  mode="md"></ion-icon></ion-label>
         </ion-button>
-     
-      <ion-title text-capitalize slot="secondary">{{titulo}}</ion-title>
+        
+        <ion-title text-capitalize id="titulo-header" slot="secondary" >{{titulo}}</ion-title>
       
       <div class="mr-3" slot="end">
         <ion-badge  class="despues"  color="danger" mode="ios">{{contadorCart}}</ion-badge>
         <ion-button mode="md"  (click)="redireccionCarrito()"  color="facebook" class="ml-0" fill="outline" slot="end">
-        <ion-icon mode="md"  class="antes" color="light" size="large" slot="icon-only" name="cart"> </ion-icon>
+        <ion-icon mode="md"  class="antes" color="light"  slot="icon-only" name="cart"> </ion-icon>
       </ion-button>
       </div>
   

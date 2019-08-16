@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, DoCheck } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GruposventaService } from './gruposventa.service';
-import { ModalController, NavController, IonList } from '@ionic/angular';
+import { ModalController, NavController, IonList, ToastController } from '@ionic/angular';
 import { ModalgruposventaPage } from '../modalgruposventa/modalgruposventa.page';
 import { isNgTemplate } from '@angular/compiler';
 /* import { HeaderComponent } from '../../components/header/header.component' */
@@ -36,7 +36,8 @@ export class GruposventaPage implements OnInit, DoCheck {
     public rotr: Router,
     public gruposVentas: GruposventaService,
     public nav: NavController,
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController,
+    public toastCtrl:ToastController) {
 
     this.idGru = this.router.snapshot.params.idGrupo;
     this.nomGru = this.router.snapshot.params.nombreGrupo;
@@ -87,7 +88,7 @@ export class GruposventaPage implements OnInit, DoCheck {
             console.log(img);
             
           } else {
-            this.img = "/assets/img/tacos.jpg";
+            this.img = "/assets/img/no-image.png";
           }
           this.listaArticulos.push({
             descripcion: key.descripcion,
@@ -160,6 +161,17 @@ export class GruposventaPage implements OnInit, DoCheck {
   }
 
 
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Articulo Agregado al Carrito.',
+      position:"top",
+      color:"toast",
+      duration: 500,
+    });
+    toast.present();
+  }
+
+
 
   incrementarContador(datosArticulo, index) {
     this.registrosCarrito = [];
@@ -182,12 +194,13 @@ export class GruposventaPage implements OnInit, DoCheck {
       seleccion: datosArticulo.seleccion,
       idGrupo: this.idGru,
       adicionales: [],
-      imagen: this.img
+      imagen: datosArticulo.imagen
 
     })
     this.registrosCarrito.push('incremento1');
 
     this.total = this.total + datosArticulo.valorVenta;
+    this.presentToast()
 
     localStorage.setItem('data', JSON.stringify(this.DataCarrito));
     localStorage.setItem('total', this.total.toString());

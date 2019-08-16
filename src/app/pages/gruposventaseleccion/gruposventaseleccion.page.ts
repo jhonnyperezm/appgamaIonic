@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GruposventaseleccionService } from './gruposventaseleccion.service';
-import Swal from 'sweetalert2'
+import { IonSegment } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-gruposventaseleccion',
@@ -9,6 +10,8 @@ import Swal from 'sweetalert2'
   styleUrls: ['./gruposventaseleccion.page.scss']
 })
 export class GruposventaseleccionPage implements OnInit {
+
+  @ViewChild(IonSegment) segment:IonSegment;
 
 
   DataCarrito: any = [];
@@ -24,6 +27,7 @@ export class GruposventaseleccionPage implements OnInit {
   dataGrupoSeleccion: any = [];
   valorArticulo: number;
   nombreArticulo: any;
+  dataString:string;
 
   valorTotalAdicionales: number = 0;
   totalAdicionalesMasArt: number = 0;
@@ -40,10 +44,13 @@ export class GruposventaseleccionPage implements OnInit {
 
   DataArrayArticulos: any = [];
   img:any;
-  imagenUrl:any;
+  // imagenUrl:any;
 
 
-  constructor(public router: ActivatedRoute, public dataGS: GruposventaseleccionService, public routers: Router) {
+  constructor(public router: ActivatedRoute, 
+    public dataGS: GruposventaseleccionService, 
+    public routers: Router,
+    public toastCtrl:ToastController) {
     this.idGru = this.router.snapshot.params.idGrupo;
     this.nomGru = this.router.snapshot.params.nombreGrupo;
     this.idArticulo = this.router.snapshot.params.idArt;
@@ -73,21 +80,24 @@ export class GruposventaseleccionPage implements OnInit {
     this.dataGS.getArticulosGrupos(this.idGru).subscribe(data => {
       this.DataArrayArticulos = data;
       const exist = this.DataArrayArticulos.filter(x => x.idArticulo == parseInt(idArt, 0));
-
+       console.log(exist);
+       
       this.dataArticuloSeleccion.idArticuloPrincipal = exist[0].idArticulo;
       this.dataArticuloSeleccion.nombreArticuloPrincipal = exist[0].nombreArticulo;
       this.dataArticuloSeleccion.descripcion = exist[0].descripcion;
       this.dataArticuloSeleccion.seleccion = exist[0].seleccion;
       this.dataArticuloSeleccion.valorVenta = exist[0].articulosListaPreciosPojo[0].valorVenta;
       this.totalAdicionalesMasArt = exist[0].articulosListaPreciosPojo[0].valorVenta;
-    
-      if (this.imagenUrl != undefined) {
+      this.img = exist[0].imagen;
 
-        this.img = 'data:image/png;base64,' + exist[0].imagen;
+      
+      if (this.img != undefined) {
+
+        this.dataArticuloSeleccion.imagen = 'data:image/png;base64,' +  this.img;
        
         
       } else {
-        this.img = "/assets/img/tacos.jpg";
+        this.dataArticuloSeleccion.imagen = "/assets/img/no-image.png";
       }
       
       
@@ -128,7 +138,8 @@ export class GruposventaseleccionPage implements OnInit {
       nombreArticulo: datosArticulo.nombreArticuloPrincipal,
       seleccion: datosArticulo.seleccion,
       idGrupo: this.idGru,
-      adicionales: this.adicionalArr
+      adicionales: this.adicionalArr,
+      imagen: datosArticulo.imagen
 
     })
     this.registrosCarrito.push('incremento1');
@@ -139,7 +150,29 @@ export class GruposventaseleccionPage implements OnInit {
     localStorage.setItem('total', this.totalFinal.toString());
 
     this.routers.navigate([`inicio`]);
+    
   }
+
+  
+  redireccionCarrito(){
+    this.DataCarrito = JSON.parse(localStorage.getItem('data'))
+    this.dataString = JSON.parse(localStorage.getItem('data')) ;
+   console.log(this.dataString);
+    this.routers.navigate([`/carrito`])
+  }
+
+
+  async presentToast() {
+    const toast = await this.toastCtrl.create({
+      message: 'Agrego Adicional',
+      position:"top",
+      color:"toast",
+      duration: 500,
+    });
+    toast.present();
+  }
+
+
 
 
 }

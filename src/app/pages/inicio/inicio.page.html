@@ -1,4 +1,25 @@
-<app-header  titulo="menú" contadorCart={{DataCarrito.length}} total={{total}}></app-header>
+<!-- <app-header  titulo="menú" contadorCart={{DataCarrito.length}} total={{total}}></app-header> -->
+<ion-header no-border>
+
+  <ion-toolbar color="facebook" >
+    
+      <ion-button  (click)="presentPopover($event)"  mode="md" color="facebook"  fill="outline"  >
+        <ion-label class="pointer dropdown-toggle text-size" color="light" >Total $ {{total | number}}<ion-icon  mode="md"></ion-icon></ion-label>
+      </ion-button>
+      
+      <ion-title text-capitalize id="titulo-header" slot="secondary" >Menú</ion-title>
+    
+    <div class="mr-3" slot="end">
+      <ion-badge  class="despues"  color="danger" mode="ios">{{DataCarrito.length}}</ion-badge>
+      <ion-button mode="md"  (click)="redireccionCarrito()"  color="facebook" class="ml-0" fill="outline" slot="end">
+      <ion-icon mode="md"  class="antes" color="light"  slot="icon-only" name="cart"> </ion-icon>
+    </ion-button>
+    </div>
+
+  </ion-toolbar>
+
+</ion-header>
+
 
 <ion-content class="animated fadeIn">
    

@@ -17,6 +17,13 @@ export class CarritoPage implements OnInit {
   carritoFinal: any = [];
   registrosCarrito: any = [];
   registrosCarritoFinal: any = [];
+  totalAdicionalesMasArt:any;
+  
+
+  
+
+  
+
 
 
   constructor(public router: Router,
@@ -131,6 +138,7 @@ export class CarritoPage implements OnInit {
 
     this.total = this.total + obj.valorVenta;
 
+    localStorage.setItem('data', JSON.stringify(this.DataCarrito));
     localStorage.setItem('total', this.total.toString());
   }
 
@@ -203,7 +211,7 @@ export class CarritoPage implements OnInit {
   }
 
 
-  enviarPedido(data) {
+  enviarPedido() {
 
     this.router.navigate(['/viewfinal'])
   }
