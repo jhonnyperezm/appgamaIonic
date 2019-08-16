@@ -5,14 +5,13 @@
     <div class="container ion-padding ">
 
         <ion-grid>
-
             <ion-row>
                 <ion-col size="8">
                     <ion-list lines="none" class="borde-bottom  rounded">
                         <ion-item class="animated fadeIn">
-                            <ion-thumbnail slot="start">
+                            <ion-thumbnail  slot="start">
 
-                                <img class="viewport-img" src="../../../assets/img/rodolfo-magallanes-MaHkiMGQFZM-unsplash.jpg">
+                                <img  class="viewport-img" [src]="img">
                             </ion-thumbnail>
                             <ion-label>
                                 <h3>{{dataArticuloSeleccion.nombreArticuloPrincipal}} </h3>
@@ -38,12 +37,11 @@
                                 <ion-list  lines="none" class="ion-activatable  borde rounded mb-3" *ngFor="let item of data.articulosGrupoSeleccionPojo">
                                     <ion-item (click)="incrementaValor(item)">
 
-                                        <ion-label><h2 class="mb-3">{{item.nombreArticulo}}</h2></ion-label>
-                                        <ion-label></ion-label>
-                                        <ion-label></ion-label>
-                                        <ion-label></ion-label>
+                                        <ion-label class="custom-label1"><h2 class=" ">{{item.nombreArticulo}}</h2></ion-label>
+                                        
+                                     
                                       
-                                        <ion-label><ion-badge class="ml-3 p-2 texto" color="menu" mode="ios"> $ {{item.incrementa | number}}</ion-badge>  </ion-label>
+                                        <ion-label class="custom-label" ><ion-badge class="texto" color="menu" mode="ios"> $ {{item.incrementa | number}}</ion-badge>  </ion-label>
 
 
                                     </ion-item>

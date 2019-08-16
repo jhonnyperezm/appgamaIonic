@@ -46,6 +46,15 @@ ion-chip{
     border: 1px solid  #3b5998;  
 }
 
+.ion-align-self-center{
+    margin-right: 16%;
+    position: static;
+}
+.size{
+    height: 25px;
+    width: 25px;
+}
+
 
 
 
@@ -89,3 +98,20 @@ ion-chip{
     right: 31%;
    }
 }
+
+.seguir-c{
+    position: fixed;
+    bottom: 61%;
+    left: 40%;
+   }
+.eliminar-p{
+    position: fixed;
+    bottom: 61%;
+    left:10%;
+    
+  }
+.enviar-p{
+    position: fixed;
+    bottom: 61%;
+    right: 10%;
+   }

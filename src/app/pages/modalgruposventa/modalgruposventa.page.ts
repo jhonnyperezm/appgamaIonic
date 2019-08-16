@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { ModalgruposventaService } from './modalgruposventa.service';
-import { NavParams } from '@ionic/angular';
+import { NavParams, ModalController } from '@ionic/angular';
 
 
 
@@ -19,7 +19,8 @@ export class ModalgruposventaPage implements OnInit {
 
  
   constructor( private modalGruposVentaService:ModalgruposventaService,
-               private navParams: NavParams ) { }
+               private navParams: NavParams,
+               private modalCtrl: ModalController ) { }
 
   ngOnInit() {
     this.passDataGrupVenta = this.navParams.get('data');
@@ -36,6 +37,13 @@ export class ModalgruposventaPage implements OnInit {
       console.log('funciona', this.listaArticulos)
       return this.listaArticulos;
     })
+  }
+
+  dismiss(){
+
+    this.modalCtrl.dismiss({
+      'dismissed': true
+    });
   }
 
 

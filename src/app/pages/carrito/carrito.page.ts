@@ -45,6 +45,9 @@ export class CarritoPage implements OnInit {
     for (let i = 0; i < this.DataCarrito.length; i++) {
       this.registrosCarrito.push('incremento1');
     }
+
+    console.log(this.DataCarrito);
+    
   }
 
   agregarCarrito(datosCarrito) {
@@ -77,7 +80,8 @@ export class CarritoPage implements OnInit {
           nombreArticulo: key.nombreArticulo,
           adicionales: key.adicionales,
           seleccion: key.seleccion,
-          cantidad: 1
+          cantidad: 1,
+          imagen: key.imagen
 
         })
         this.registrosCarritoFinal.push('carritoFinal1')

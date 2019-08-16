@@ -35,7 +35,7 @@
             <ion-item-sliding>
               <ion-item class="borde rounded rounded">
                 <ion-thumbnail slot="start">
-                  <img src="../../../assets/img/rodolfo-magallanes-MaHkiMGQFZM-unsplash.jpg">
+                  <img [src]="data.imagen">
                 </ion-thumbnail>
                 <ion-icon  slot="end" mode="md" name="arrow-dropleft"></ion-icon>
                 
@@ -47,8 +47,8 @@
                 <ion-label >
                   cantidad
                   <ion-text slot="end" color="dark">
-                      <h1 [ngClass]="{'pl-4' : data.adicionales.length != 0}">
-                         <ion-icon (click)="restarCantidad(data, i)" *ngIf="data.adicionales.length == 0"  color="facebook" class="size " name="remove-circle-outline"></ion-icon>  
+                    <h1 [ngClass]="{'pl-4' : data.adicionales.length != 0}">
+                        <ion-icon (click)="restarCantidad(data, i)" *ngIf="data.adicionales.length == 0"  color="facebook" class="size" name="remove-circle-outline"></ion-icon>  
                         {{data.cantidad}}
                         <ion-icon (click)="sumarCantidad(data)" *ngIf="data.adicionales.length == 0" color="facebook" class="size" name="add-circle-outline"></ion-icon>
                       </h1>
@@ -81,13 +81,13 @@
 </ion-content>  
 <ion-footer no-border>
   <ion-toolbar>
-    <ion-button (click)="elimninarPedido()" color="facebook" class="custom animated bounceIn ">
+    <ion-button (click)="elimninarPedido()" color="facebook" class="eliminar-p animated bounceIn ">
       Eliminar Pedido
     </ion-button>
-    <ion-button (click)="seguirComprando()" color="facebook" class="custom-1 animated bounceIn ">
+    <ion-button (click)="seguirComprando()" color="facebook" class="seguir-c animated bounceIn ">
       Seguir Comprando
     </ion-button>
-    <ion-button (click)="enviarPedido(data)" color="facebook" class="custom-2 animated bounceIn ">
+    <ion-button (click)="enviarPedido(data)" color="facebook" class="enviar-p animated bounceIn ">
       Enviar Pedio
     </ion-button>
     <app-footer></app-footer>

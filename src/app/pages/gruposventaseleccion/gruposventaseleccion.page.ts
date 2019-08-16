@@ -39,6 +39,8 @@ export class GruposventaseleccionPage implements OnInit {
   totalFinal: number;
 
   DataArrayArticulos: any = [];
+  img:any;
+  imagenUrl:any;
 
 
   constructor(public router: ActivatedRoute, public dataGS: GruposventaseleccionService, public routers: Router) {
@@ -78,7 +80,17 @@ export class GruposventaseleccionPage implements OnInit {
       this.dataArticuloSeleccion.seleccion = exist[0].seleccion;
       this.dataArticuloSeleccion.valorVenta = exist[0].articulosListaPreciosPojo[0].valorVenta;
       this.totalAdicionalesMasArt = exist[0].articulosListaPreciosPojo[0].valorVenta;
+    
+      if (this.imagenUrl != undefined) {
 
+        this.img = 'data:image/png;base64,' + exist[0].imagen;
+       
+        
+      } else {
+        this.img = "/assets/img/tacos.jpg";
+      }
+      
+      
     });
   }
 

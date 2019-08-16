@@ -25,6 +25,9 @@ export class GruposventaPage implements OnInit, DoCheck {
   total: number = 0;
   registrosCarrito: any = [];
   contadorArt: number;
+  totalFinal:number = 0;
+  imagenUrl:string;
+  img:any;
 
   @ViewChild('lista') Lista: IonList
 
@@ -63,25 +66,43 @@ export class GruposventaPage implements OnInit, DoCheck {
   getArticulos(id) {
     this.gruposVentas.getArticulosGrupos(id).subscribe(data => {
       this.DataArrayArticulos = data;
+      
       this.listaArticulos = [];
       let contador;
       for (const key of this.DataArrayArticulos) {
         for (const it of key.articulosListaPreciosPojo) {
-
+          
           const exist = this.DataCarrito.filter(x => x.idArticulo === key.idArticulo);
           contador = exist.length;
+          let img;
+          this.imagenUrl = key.imagen;     
 
+          
+          /* let words = 'data:image/png;base64,' + key.imagen;
+          console.log(words);
+          this.imagenUrl = words; */
+          if (this.imagenUrl != undefined) {
+
+            this.img = 'data:image/png;base64,' + key.imagen;
+            console.log(img);
+            
+          } else {
+            this.img = "/assets/img/tacos.jpg";
+          }
           this.listaArticulos.push({
             descripcion: key.descripcion,
             idArticulo: key.idArticulo,
             nombreArticulo: key.nombreArticulo,
             seleccion: key.seleccion,
             valorVenta: it.valorVenta,
-            contadorArt: contador
-
+            contadorArt: contador,
+            imagen: this.img
           });
         }
       }
+      console.log(this.listaArticulos);
+      
+      
       return this.listaArticulos;
     })
   }
@@ -105,10 +126,18 @@ export class GruposventaPage implements OnInit, DoCheck {
     for (let i = 0; i < this.listaArticulos.length; i++) {
       if (i === indexLA) {
         this.listaArticulos[i].contadorArt = this.listaArticulos[i].contadorArt - 1;
-        this.total = this.total - this.listaArticulos[i].costoEstimado;
+        this.total = this.total - this.listaArticulos[i].valorVenta;
         this.contadorPrincipal = this.contadorPrincipal - 1;
       }
     }
+
+   for (let j = 0; j < this.DataCarrito.length; j++) {
+      let sumaAdic =this.DataCarrito[j].adicionales;
+     console.log(sumaAdic);
+     for (let i = 0; i < sumaAdic.length; i++) {
+      console.log(sumaAdic[i].valorAdicional);    
+     }
+   }
 
     const existe = this.DataCarrito.filter(x => x.idArticulo === idArt)
     if (existe.length !== 0) {
@@ -152,7 +181,8 @@ export class GruposventaPage implements OnInit, DoCheck {
       nombreArticulo: datosArticulo.nombreArticulo,
       seleccion: datosArticulo.seleccion,
       idGrupo: this.idGru,
-      adicionales: []
+      adicionales: [],
+      imagen: this.img
 
     })
     this.registrosCarrito.push('incremento1');
