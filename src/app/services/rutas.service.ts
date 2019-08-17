@@ -16,11 +16,8 @@ export class RutasService {
     //const path = 'http://gd3.gamasoftcol.com:8081/backgama_dev/ptigGama_dev/';
 
     // RUTA PARA AMBIENTE PRODUCCION
-      const path = 'http://gd3.gamasoftcol.com:8081/backgama/ptigGama/';
+      const path = 'https://gd3.gamasoftcol.com:8443/backgama/ptigGama/';
       return path;
   }
-
-  
-
 
 }
